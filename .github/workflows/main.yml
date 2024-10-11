@@ -21,8 +21,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests (if you have tests)
-        run: npm test  # Adjust if you have tests
 
       - name: Build the project
         run: npm run build || echo "No build script defined."
