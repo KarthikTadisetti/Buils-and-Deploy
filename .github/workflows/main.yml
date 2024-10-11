@@ -8,20 +8,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Check out code
         uses: actions/checkout@v2
-      
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14' # Change to your desired Node.js version
-      
+          node-version: '14'
+
       - name: Install dependencies
         run: npm install
-      
-      - name: Run tests
-        run: npm test
-      
-      - name: Deploy
-        run: echo "Deploying..." # Replace with your deployment commands
+
+      - name: Run tests (if you have tests)
+        run: npm test  # Adjust if you have tests
+
+      - name: Build the project
+        run: npm run build || echo "No build script defined."
+
+      - name: Deploy to Server
+        run: |
+          echo "Deploying..."
+          # Add your deployment commands here
+          # For example, you can use scp to copy files to your server
