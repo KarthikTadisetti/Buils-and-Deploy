@@ -16,7 +16,7 @@ const server = http.createServer((req, res) => {
     });
 });
 
-const PORT = process.env.PORT || 3002; // Change the port to 3001 or any other free port
+const PORT = process.env.PORT || 3003; // Change the port to 3001 or any other free port
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
