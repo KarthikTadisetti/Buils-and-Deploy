@@ -1,7 +1,10 @@
-name: CI/CD Pipeline
+name: Build and Deploy
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
@@ -10,23 +13,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
+    - name: Run build
+      run: npm start
 
-      - name: Build the project
-        run: npm run build || echo "No build script defined."
+    # Generate a success or failure report
+    - name: Build success report
+      if: success()
+      run: |
+        echo "Build was successful!" > build-report.txt
+        echo "Application started and running properly."
 
-      - name: Deploy to Server
-        run: |
-          echo "Deploying..."
-          # Add your deployment commands here
-          # For example, you can use scp to copy files to your server
+    - name: Build failure report
+      if: failure()
+      run: |
+        echo "Build failed!" > build-report.txt
+        echo "Check the logs for more details."
+
+    # Deployment step (optional, customize according to your deployment)
+    - name: Deploy to Web (Optional)
+      run: echo "Deployment step goes here."
+
+    # Upload build report artifact
+    - name: Upload Build Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-report
+        path: build-report.txt
