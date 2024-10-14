@@ -28,17 +28,17 @@ jobs:
       run: npm start
 
     # Generate a success or failure report
-    - name: Build success report
-      if: success()
-      run: |
-        echo "Build was successful!" > build-report.txt
-        echo "Application started and running properly."
+    # - name: Build success report
+    #   if: success()
+    #   run: |
+    #     echo "Build was successful!" > build-report.txt
+    #     echo "Application started and running properly."
 
-    - name: Build failure report
-      if: failure()
-      run: |
-        echo "Build failed!" > build-report.txt
-        echo "Check the logs for more details."
+    # - name: Build failure report
+    #   if: failure()
+    #   run: |
+    #     echo "Build failed!" > build-report.txt
+    #     echo "Check the logs for more details."
 
     # Deployment step (optional, customize according to your deployment)
     - name: Deploy to Web (Optional)
