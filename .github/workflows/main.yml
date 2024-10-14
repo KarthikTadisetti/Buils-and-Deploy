@@ -27,26 +27,6 @@ jobs:
     - name: Run build
       run: npm start
 
-    # Generate a success or failure report
-    # - name: Build success report
-    #   if: success()
-    #   run: |
-    #     echo "Build was successful!" > build-report.txt
-    #     echo "Application started and running properly."
-
-    # - name: Build failure report
-    #   if: failure()
-    #   run: |
-    #     echo "Build failed!" > build-report.txt
-    #     echo "Check the logs for more details."
-
-    # Deployment step (optional, customize according to your deployment)
+    # Deploy step - customize as per your deployment method
     - name: Deploy to Web (Optional)
       run: echo "Deployment step goes here."
-
-    # Upload build report artifact
-    - name: Upload Build Report
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-report
-        path: build-report.txt
