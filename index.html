@@ -19,18 +19,18 @@
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent form submission
-
-            // Simple login validation
+            e.preventDefault(); // Prevent form submission to server
+            
+            // Get email and password values
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            // For demonstration, we assume any non-empty email and password is valid
+            // Basic validation: check if email and password are not empty
             if (email && password) {
-                // Redirect to next page after successful login
-                window.location.href = 'next.html';
+                // Redirect to next.html page
+                window.location.href = 'next.html';  // Make sure next.html exists in the same folder
             } else {
-                alert('Invalid login details');
+                alert('Please enter valid email and password.');
             }
         });
     </script>
