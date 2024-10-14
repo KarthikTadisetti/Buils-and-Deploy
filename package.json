@@ -1,10 +1,11 @@
 {
   "name": "simple-node-app",
   "version": "1.0.0",
-  "description": "A simple Node.js app with two input fields",
+  "description": "A simple Node.js app",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "echo 'Build step not required for this app'"
   },
   "author": "Your Name",
   "license": "ISC",
