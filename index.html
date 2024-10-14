@@ -3,18 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample Form</title>
+    <title>Login Page</title>
 </head>
 <body>
-    <h2>Enter Your Details</h2>
-    <form>
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" placeholder="Enter your name"><br><br>
-
+    <h2>Login</h2>
+    <form id="loginForm">
         <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" placeholder="Enter your email"><br><br>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required><br><br>
 
-        <input type="submit" value="Submit">
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required><br><br>
+
+        <button type="submit">Login</button>
     </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form submission
+
+            // Simple login validation
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // For demonstration, we assume any non-empty email and password is valid
+            if (email && password) {
+                // Redirect to next page after successful login
+                window.location.href = 'next.html';
+            } else {
+                alert('Invalid login details');
+            }
+        });
+    </script>
 </body>
 </html>
