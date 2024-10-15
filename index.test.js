@@ -47,11 +47,11 @@ describe('Simple Form Functionality', function() {
         const alertStub = sinon.stub(window, 'alert');
 
         // Simulate form submission
-        window.document.getElementById('simpleForm').dispatchEvent(new window.Event('submit'));
+        window.document.getElementById('simpleForm').dispatchEvent(new window.Event('submit', { bubbles: true }));
 
         // Check if alert was called with the correct message
-        expect(alertStub.calledOnce).to.be.true;
-        expect(alertStub.calledWith('Submitted! Name: John Doe, Email: john@example.com')).to.be.true;
+        expect(alertStub.calledOnce).to.be.true;  // Ensure alert was called once
+        expect(alertStub.calledWith('Submitted! Name: John Doe, Email: john@example.com')).to.be.true; // Validate alert message
 
         // Restore the original alert function
         alertStub.restore();
