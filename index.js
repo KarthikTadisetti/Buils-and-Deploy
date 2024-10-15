@@ -1,22 +1,15 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+// index.js
+import http from 'http';
 
-// Create server to serve the index.html file
+const hostname = '127.0.0.1';
+const port = 3000;
+
 const server = http.createServer((req, res) => {
-    const filePath = path.join(__dirname, 'index.html');
-    fs.readFile(filePath, (err, content) => {
-        if (err) {
-            res.writeHead(500);
-            res.end('Error loading page');
-        } else {
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.end(content, 'utf-8');
-        }
-    });
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World\n');
 });
 
-const PORT = process.env.PORT || 3004; // Change the port to 3004 or any other free port
-server.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
 });
