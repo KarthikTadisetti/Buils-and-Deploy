@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "mocha index.test.js", 
-    "build": "echo 'Building the project...'" 
+    "test": "mocha index.test.js",
+    "build": "echo 'Building the project...'"
   },
-  "dependencies": {
-    "mocha": "^10.0.0"
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "jsdom": "^25.0.1",
+    "mocha": "^10.7.3"
   }
 }
