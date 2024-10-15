@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "mocha index.test.js", // Test script
-    "build": "echo 'Building the project...'" // Add your actual build script here
+    "test": "mocha index.test.js", 
+    "build": "echo 'Building the project...'" 
   },
   "dependencies": {
     "mocha": "^10.0.0"
