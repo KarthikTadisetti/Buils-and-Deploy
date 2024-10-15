@@ -1,28 +1,29 @@
+// index.test.js
 import { JSDOM } from 'jsdom';
 import { expect } from 'chai';
+import fs from 'fs';
 
 describe('Welcome Page Functionality', () => {
-  let window;
+    let window;
 
-  beforeEach(() => {
-    // Set up a JSDOM environment for testing
-    window = new JSDOM(`<!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <title>Welcome Page</title>
-      </head>
-      <body>
-          <h1>Welcome to the Page</h1>
-      </body>
-      </html>`).window;
+    before((done) => {
+        fs.readFile('./public/index.html', 'utf-8', (err, data) => {
+            if (err) {
+                done(err);
+            } else {
+                window = (new JSDOM(data)).window;
+                done();
+            }
+        });
+    });
 
-    global.document = window.document;
-  });
+    it('should display welcome message', () => {
+        const h2 = window.document.querySelector('h2');
+        expect(h2.textContent).to.equal('Welcome to the Page!');
+    });
 
-  it('should display the welcome message', () => {
-    const heading = document.querySelector('h1');
-    expect(heading).to.exist; // Check if the heading exists
-    expect(heading.textContent).to.equal('Welcome to the Page'); // Check the content
-  });
+    it('should display success message', () => {
+        const p = window.document.querySelector('p');
+        expect(p.textContent).to.equal('You have successfully accessed the welcome page.');
+    });
 });
