@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: CI/CD Pipeline
 
 on:
   push:
@@ -10,14 +10,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Install dependencies
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # Step 3: Install dependencies
+      - name: Install Dependencies
         run: npm install
 
+      # Step 4: Run tests
+      - name: Run Tests
+        run: npm test
 
-      - name: Run build
+      # Step 5: Build the project
+      - name: Build the project
         run: npm run build
 
       - name: Report build failure
@@ -58,3 +70,23 @@ jobs:
         with:
           name: deploy-failure-report
           path: deploy_failure_report.txt
+
+  rollback:
+    needs: build
+    runs-on: ubuntu-latest
+    if: failure()
+    steps:
+      # Step 1: Checkout previous version
+      - name: Checkout previous commit
+        run: git checkout HEAD~1
+
+      # Step 2: Deploy previous version
+      - name: Rollback to Previous Version
+        run: |
+          echo "Rolling back to previous version..."
+          # Add rollback deployment command here
+          # Example: scp -r ./dist/ user@production-server:/path/to/deploy
+
+      # Step 3: Notify about rollback
+      - name: Notify Rollback
+        run: echo "Build failed. Rolled back to the previous version."

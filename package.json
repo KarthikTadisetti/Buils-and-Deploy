@@ -5,12 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "echo 'Build step not required for this app'"
+    "test": "mocha index.test.js", // Test script
+    "build": "echo 'Building the project...'" // Add your actual build script here
   },
-  "author": "Your Name",
-  "license": "ISC",
   "dependencies": {
-    "fs": "0.0.1-security",
-    "path": "^0.12.7"
+    "mocha": "^10.0.0"
   }
 }
