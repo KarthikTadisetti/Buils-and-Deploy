@@ -1,76 +1,59 @@
-const { JSDOM } = require('jsdom');
-const { assert } = require('chai');
+import { expect } from 'chai';
+import { JSDOM } from 'jsdom';
+import sinon from 'sinon';
 
-// Load the HTML file
-const html = `
+// Simulate the simple form page
+const { window } = new JSDOM(`
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Simple Form</title>
 </head>
 <body>
-    <h2>Login</h2>
-    <form id="loginForm">
+    <h2>Simple Form</h2>
+    <form id="simpleForm">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required><br><br>
+
         <label for="email">Email:</label><br>
         <input type="email" id="email" name="email" placeholder="Enter your email" required><br><br>
 
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required><br><br>
-
-        <input type="submit" value="Login">
+        <input type="submit" value="Submit">
     </form>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
+        document.getElementById('simpleForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
 
-            if (email === 'test@example.com' && password === 'password') {
-                window.location.href = './next.html'; // Redirect to next page
-            } else {
-                alert('Invalid email or password.');
-            }
+            alert(\`Submitted! Name: \${name}, Email: \${email}\`);
         });
     </script>
 </body>
 </html>
-`;
+`);
 
-describe('Login Form', function() {
-    let window, document;
+// Describe the test suite
+describe('Simple Form Functionality', function() {
+    it('should display alert with submitted values', function() {
+        // Set input values
+        window.document.getElementById('name').value = 'John Doe';
+        window.document.getElementById('email').value = 'john@example.com';
 
-    // Set up the DOM for testing
-    before(function() {
-        const dom = new JSDOM(html, { runScripts: "outside-only" });
-        window = dom.window;
-        document = window.document;
-    });
-
-    it('should redirect to next.html for valid login', function() {
-        document.getElementById('email').value = 'test@example.com';
-        document.getElementById('password').value = 'password';
+        // Spy on the alert function
+        const alertStub = sinon.stub(window, 'alert');
 
         // Simulate form submission
-        document.getElementById('loginForm').dispatchEvent(new window.Event('submit'));
+        window.document.getElementById('simpleForm').dispatchEvent(new window.Event('submit'));
 
-        // Check if redirected
-        assert.equal(window.location.href, 'http://localhost/next.html');
-    });
+        // Check if alert was called with the correct message
+        expect(alertStub.calledOnce).to.be.true;
+        expect(alertStub.calledWith('Submitted! Name: John Doe, Email: john@example.com')).to.be.true;
 
-    it('should show alert for invalid login', function() {
-        document.getElementById('email').value = 'wrong@example.com';
-        document.getElementById('password').value = 'wrongpassword';
-
-        // Mock the alert function
-        window.alert = function(message) {
-            assert.equal(message, 'Invalid email or password.');
-        };
-
-        // Simulate form submission
-        document.getElementById('loginForm').dispatchEvent(new window.Event('submit'));
+        // Restore the original alert function
+        alertStub.restore();
     });
 });

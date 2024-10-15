@@ -1,16 +1,17 @@
 {
   "name": "simple-node-app",
   "version": "1.0.0",
-  "description": "A simple Node.js app",
+  "description": "A simple node application",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
     "test": "mocha index.test.js",
-    "build": "echo 'Building the project...'"
+    "start": "node index.js"
   },
+  "type": "module",
   "devDependencies": {
-    "chai": "^5.1.1",
-    "jsdom": "^25.0.1",
-    "mocha": "^10.7.3"
+    "chai": "^4.3.4",
+    "jsdom": "^21.1.0",
+    "mocha": "^10.0.0",
+    "sinon": "^19.0.2"
   }
 }
