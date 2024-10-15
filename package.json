@@ -1,18 +1,15 @@
-{"name": "simple-node-app",
-  "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "start": "node index.js",
-    "test": "mocha index.test.js",
-    "build": "echo 'Building the project...'"
-  },
-  "dependencies": {
-    "express": "^4.18.2" 
+{"name":"simple-node-app",
+"version":"1.0.0","main":"index.js","type":"module",
+"scripts":{
+"start":"node index.js",
+"test": "mocha 'test/*.test.js'",
+"build":"echo 'Building the project...'"
 },
-  "devDependencies": {
-    "chai": "^4.3.6",
-    "jsdom": "^20.0.0",
-    "mocha": "^10.0.0"
-  }
+"dependencies":{"express":"^4.18.2"},
+"devDependencies":
+{
+  "chai":"^4.5.0",
+  "jsdom":"^20.0.3",
+  "mocha":"^10.7.3"
+}
 }
