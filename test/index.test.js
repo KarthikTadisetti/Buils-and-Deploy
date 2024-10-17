@@ -33,6 +33,6 @@ describe('Welcome Page Functionality', function () {
 
   it('should display the welcome message paragraph', function () {
     const paragraph = document.querySelector('p').textContent;
-    expect(paragraph).to.equal('You have successfully accessed the welcome page.');
+    expect(paragraph).to.equal('You have successfully accessed the Welcome Page.');
   });
 });
